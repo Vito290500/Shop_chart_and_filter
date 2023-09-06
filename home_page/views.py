@@ -8,6 +8,7 @@ from .models import ShopItem, Category, Brand
 class HomePage(View):
 
     def get(self, request):
+
         brand = Brand.objects.all()
         category = Category.objects.all()
         all_item = ShopItem.objects.all()
@@ -18,18 +19,27 @@ class HomePage(View):
                       "brand": brand,
                       "tag": tag
                       })
-    
+
+    def check_latest(self, request, query, latest):
+
+        last_filter_applied = ''
+        if latest == 'new':
+            last_filter_applied = query.order_by('DataItem')
+        else:
+            last_filter_applied = query
+        return last_filter_applied
+
     def check_filter_price(self, request, query, price_filter):
-       
+
         additional_filtered_items = ''
         if price_filter == '' or price_filter == '-':
             additional_filtered_items = query.order_by(f'{price_filter}PriceItem')
         else:
             additional_filtered_items = query
-    
         return additional_filtered_items
 
     def check_filter(self, request, *args):
+
         list_filter_to_applied = {}
         list_to_check = ['Category', 'Brand', 'Specific Category']
 
@@ -44,9 +54,7 @@ class HomePage(View):
         else:          
             return list_filter_to_applied
         
-
     def post(self, request):
-        
         category_choice = request.POST.get('category-choice')
         brand_filter = request.POST.get('brand-filter')
         specific_category_filter = request.POST.get('specific-category-filter')
@@ -65,29 +73,26 @@ class HomePage(View):
             items = ShopItem.objects.all()
 
             additional_filtered_items = self.check_filter_price(request, items, price_filter)
-        
+            final_filter_applied_items = self.check_latest(request, additional_filtered_items, last_updated_filter)
+
             return render(request, "structure/homepage.html",{
-                      'items': additional_filtered_items,
+                      'items': final_filter_applied_items,
                       "category" : category,
                       "brand": brand,
                       "tag": tag
-                      })
-        
-
-        #Check with 3 category filter
+                      }) 
         else:
             filter = self.check_filter(request, category_choice, brand_filter, specific_category_filter, price_filter, last_updated_filter)
-
+            #Check with 3 category filter
             if len(filter) == 3:
-                
-                items = ShopItem.objects.filter(category__category=category_choice, brand__brand = brand_filter, TagItem = specific_category_filter)
+                items = ShopItem.objects.filter(category__category=category_choice, brand__brand=brand_filter, TagItem=specific_category_filter)
 
                 if items.exists():
-
-                    items = self.check_filter_price(request, items, price_filter)
+                    additional_filter_items = self.check_filter_price(request, items, price_filter)
+                    final_filtered_items = self.check_latest(request, additional_filter_items, last_updated_filter)
 
                     return render(request, "structure/homepage.html",{
-                        "items": items,
+                        "items": final_filtered_items,
                         "category": category,
                         "brand": brand,
                         "tag": tag
@@ -101,18 +106,41 @@ class HomePage(View):
                                 "brand": brand,
                                 "tag": tag,
                                 "message": "There is no result."
-                                })
-                
-
-
+                                })  
             #Check with 2 category filter  
+            elif len(filter) == 2:
+                query = Q()
 
+                if 'Brand' in filter and 'Category' in filter:
+                    query &= Q(category__category=category_choice, brand__brand=brand_filter)
 
+                if 'Category' in filter and 'Specific Category' in filter:
+                    query &= Q(category__category=category_choice, TagItem=specific_category_filter)
 
+                if 'Brand' in filter and 'Specific Category' in filter:
+                    query &= Q(brand__brand=brand_filter, TagItem=specific_category_filter)
 
+                filtered_items = ShopItem.objects.filter(query)
 
+                if filtered_items.exists():
+                    additional_filtered_items = self.check_filter_price(request, filtered_items, price_filter)
+                    final_filtered_items = self.check_latest(request, additional_filtered_items, last_updated_filter)
 
-
+                    return render(request, "structure/homepage.html",{
+                            "items": final_filtered_items,
+                            "category": category,
+                            "brand": brand,
+                            "tag": tag
+                        })
+                else:
+                    items = ShopItem.objects.filter(TagItem = "abcdiefghilmnopqrstvuz")
+                    return render(request, "structure/homepage.html",{
+                                'items': items,
+                                "category" : category,
+                                "brand": brand,
+                                "tag": tag,
+                                "message": "There is no result."
+                                })
             #Check with 1 category filter 
             elif len(filter) == 1:
                 query = Q()
@@ -130,9 +158,10 @@ class HomePage(View):
 
                 if filtered_items.exists():
                     additional_filtered_items = self.check_filter_price(request, filtered_items, price_filter)
+                    final_filtered_items = self.check_latest(request, additional_filtered_items, last_updated_filter)
 
                     return render(request, "structure/homepage.html",{
-                            "items": additional_filtered_items,
+                            "items": final_filtered_items,
                             "category": category,
                             "brand": brand,
                             "tag": tag
