@@ -184,12 +184,11 @@
     </div>
 
     <div class="container">
-        <div class="row">
+        <div class="card-container">
             {% if message %}
                 <p class="no-result">{{message}}</p>
             {% else %}
                 {% for item in items %}
-                <div class="col-md-4">
                     <div class="card" style="width: 18rem;">
                         <img src="{{ item.ImageItem.url }}" height="300px" class="card-img-top" alt="...">
                         <div class="card-body">
@@ -200,7 +199,6 @@
                             <a href="#" id="show" class="btn btn-outline-primary">Show Details</a>
                         </div>
                     </div>
-                </div>
                 {% endfor %}
             {% endif %}
         </div>

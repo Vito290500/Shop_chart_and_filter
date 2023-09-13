@@ -3,6 +3,8 @@
 }
 .card{
     margin-top: 2rem;
+    margin-right: 1rem;
+
 }
 .background{
     background-color: #3457D5;
@@ -88,11 +90,16 @@ nav .navbar-brand{
     margin-top: 0.5rem;
     width: 120px;
 }
-
 .card {
     transition: transform 0.2s ease-in-out;
 }
-
 .card:hover {
     transform: scale(1.05); /* Increase the scale on hover */
+}
+.card-container{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
+    position: absolute;
+    left: 1.5rem;
 }
