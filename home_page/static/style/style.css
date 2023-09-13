@@ -36,7 +36,7 @@
     display: flex;
 }
 nav .navbar-brand{
-    margin-left: -15rem;
+    margin-left: -14rem;
 }
 .d-flex{
     margin-left: -8rem;
@@ -48,7 +48,7 @@ nav .navbar-brand{
     width: 80px;
 }
 #filter{
-    margin-left: -15rem;
+    margin-left: -13rem;
     width: 100px;
     margin-right: -8rem;
 }
@@ -75,7 +75,8 @@ nav .navbar-brand{
 }
 .no-result{
     margin-top: 4rem;
-    margin-left: 40%;
+    width: 300px;
+    margin-left: 22rem;
     font-size: 20px;
 }
 #available{
