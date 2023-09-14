@@ -50,7 +50,7 @@ nav .navbar-brand{
 #filter{
     margin-left: -13rem;
     width: 100px;
-    margin-right: -8rem;
+    margin-right: -12.5rem;
 }
 #chart{
     margin-right: 1rem;
@@ -103,4 +103,30 @@ nav .navbar-brand{
     padding: 10px;
     position: absolute;
     left: 1.5rem;
+}
+.add_to_prefer{
+    height: 70px;
+    margin-top: -1rem;
+}
+.prefer_button{
+    margin-left: 14rem;
+    border: none;
+    border-radius: 0px 0px 15px 15px;
+    background-color:#0037ffe0;
+    width: 40px;
+    height: 50px;
+    margin-top: 0.8rem;
+    color: white;
+}
+.prefer_button:hover{
+    transform: scale(1.20);
+}
+#prefer{
+    margin-right: -13rem;
+    width: 60px;
+    height: 60px;
+}
+#prefer p{
+    font-size: 40px;
+    color: #3457D5;
 }

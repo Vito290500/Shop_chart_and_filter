@@ -175,3 +175,34 @@ class HomePage(View):
                             "tag": tag,
                             "message": "There is no result."
                             })
+            
+
+class HomePageSearch(View):
+    
+    def post(self, request):
+        brand = Brand.objects.all()
+        category = Category.objects.all()
+        all_item = ShopItem.objects.all()
+        tag = ShopItem.objects.values_list('TagItem', flat=True).distinct()
+
+        user_input = request.POST['textfield']
+
+        filtered_objects = all_item.filter(NameItem__contains=user_input)
+        
+        if filtered_objects.exists():
+            return render(request, "structure/homepage.html",{
+                        'items': filtered_objects,
+                        "category" : category,
+                        "brand": brand,
+                        "tag": tag
+                        })  
+        
+        else:
+            items = ShopItem.objects.filter(TagItem = "abcdiefghilmnopqrstvuz")
+            return render(request, "structure/homepage.html",{
+                            'items': items,
+                            "category" : category,
+                            "brand": brand,
+                            "tag": tag,
+                            "message": "There is no result."
+                            })

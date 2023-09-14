@@ -81,14 +81,19 @@
                     </div>
                 </div>
     
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="d-flex" role="search" action="{% url 'search-homepage' %}" method="post">
+                    {% csrf_token %}
+                    <input class="form-control me-2" type="search" name="textfield" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-primary" type="submit">Search</button>
                 </form>
 
                 <!-- Button trigger modal -->
                 <button type="button" id="filter" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Filter
+                </button>
+
+                <button id="prefer" class="navbar-toggler" type="button">
+                    <p>♥️</p>
                 </button>
 
                 <button id="chart" class="navbar-toggler" type="button">
@@ -190,12 +195,15 @@
             {% else %}
                 {% for item in items %}
                     <div class="card" style="width: 18rem;">
+                        <div class="add_to_prefer">
+                            <button class="prefer_button">♥️</button>
+                        </div>
                         <img src="{{ item.ImageItem.url }}" height="300px" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{ item.NameItem }}</h5>
                             <p id="price" class="card-text" style="display: inline;">Price: {{ item.PriceItem }}</p>
                             <p id="available" class="card-text" style="display: inline;">Available: {{ item.available }}</p>
-                            <a href="#" id="price" class="btn btn-primary">Buy It Now</a>
+                            <a href="#" id="price" class="btn btn-primary">Add to Chart</a>
                             <a href="#" id="show" class="btn btn-outline-primary">Show Details</a>
                         </div>
                     </div>
