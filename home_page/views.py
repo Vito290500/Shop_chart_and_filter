@@ -196,13 +196,83 @@ class HomePageSearch(View):
                         "brand": brand,
                         "tag": tag
                         })  
-        
+    
+
         else:
-            items = ShopItem.objects.filter(TagItem = "abcdiefghilmnopqrstvuz")
-            return render(request, "structure/homepage.html",{
-                            'items': items,
-                            "category" : category,
-                            "brand": brand,
-                            "tag": tag,
-                            "message": "There is no result."
-                            })
+            list_word = []
+            split_text = user_input.split()
+            for word in split_text:
+                list_word.append(word)
+
+            search_filter1 = all_item.filter(NameItem__contains=list_word[0])
+            if search_filter1.exists:
+                search_filter2 = search_filter1.filter(NameItem__contains=list_word[1])
+
+                if search_filter2.exists():
+                    return render(request, "structure/homepage.html",{
+                        'items': search_filter2,
+                        "category" : category,
+                        "brand": brand,
+                        "tag": tag
+                        })  
+
+                else:
+                    items = ShopItem.objects.filter(TagItem = "abcdiefghilmnopqrstvuz")
+                    return render(request, "structure/homepage.html",{
+                                'items': items,
+                                "category" : category,
+                                "brand": brand,
+                                "tag": tag,
+                                "message": "There is no result."
+                                })
+        
+            else:
+                items = ShopItem.objects.filter(TagItem = "abcdiefghilmnopqrstvuz")
+                return render(request, "structure/homepage.html",{
+                                'items': items,
+                                "category" : category,
+                                "brand": brand,
+                                "tag": tag,
+                                "message": "There is no result."
+                                })
+            
+class Prefer(View):
+    def get(self, request):
+        prefer_item = ShopItem.objects.filter(prefer = "yes")
+        return render(request, "structure/prefer.html",{
+            "items" : prefer_item
+        })
+
+    def post(self, request):
+        add_to_prefer = request.POST['Add']
+        nameitem = request.POST['NameItem']
+
+        if add_to_prefer == ' ' or add_to_prefer == 'yes':
+            change_prefer = ShopItem.objects.get(NameItem=nameitem)
+            change_prefer.prefer = "no"
+            change_prefer.save()
+
+        else: 
+            change_prefer = ShopItem.objects.get(NameItem=nameitem)
+            change_prefer.prefer = "yes"
+            change_prefer.save()
+
+        brand = Brand.objects.all()
+        category = Category.objects.all()
+        all_item = ShopItem.objects.all()
+        tag = ShopItem.objects.values_list('TagItem', flat=True).distinct()
+
+        return render(request, "structure/homepage.html",{
+                      'items': all_item,
+                      "category" : category,
+                      "brand": brand,
+                      "tag": tag
+                      })
+
+
+
+
+class Chart(View):
+    pass
+
+

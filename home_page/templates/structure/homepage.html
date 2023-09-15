@@ -26,7 +26,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
     
-                <a class="navbar-brand" href="#">HOME PAGE</a>
+                <a class="navbar-brand" href="{% url 'home-page' %}">HOME PAGE</a>
     
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
@@ -92,9 +92,11 @@
                     Filter
                 </button>
 
-                <button id="prefer" class="navbar-toggler" type="button">
+                
+                <a id="prefer" href="{% url 'list-prefer' %}">
                     <p>♥️</p>
-                </button>
+                </a>
+                
 
                 <button id="chart" class="navbar-toggler" type="button">
                     <img src="https://img.icons8.com/?size=512&id=13014&format=png" alt="" width="35px" height="40px">
@@ -195,9 +197,25 @@
             {% else %}
                 {% for item in items %}
                     <div class="card" style="width: 18rem;">
-                        <div class="add_to_prefer">
-                            <button class="prefer_button">♥️</button>
-                        </div>
+                        {% if item.prefer %}
+                            <form action="{% url 'list-prefer' %}" method="post">
+                                {% csrf_token %}
+                                <div class="add_to_prefer">
+                                    <input type="hidden" name="Add" value="{{ item.prefer }}">
+                                    <input type="hidden" name="NameItem" value="{{ item.NameItem }}">
+                                    <button class="delete_button" type="submit">X</button>
+                                </div>
+                            </form>
+                        {% else %}
+                            <form action="{% url 'list-prefer' %}" method="post">
+                                {% csrf_token %}
+                                <div class="add_to_prefer">
+                                    <input type="hidden" name="Add" value="{{ item.prefer }}">
+                                    <input type="hidden" name="NameItem" value="{{ item.NameItem }}">
+                                    <button class="prefer_button" type="submit">♥️</button>
+                                </div>
+                            </form>
+                        {% endif %}
                         <img src="{{ item.ImageItem.url }}" height="300px" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{ item.NameItem }}</h5>

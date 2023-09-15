@@ -95,7 +95,7 @@ nav .navbar-brand{
     transition: transform 0.2s ease-in-out;
 }
 .card:hover {
-    transform: scale(1.05); /* Increase the scale on hover */
+    transform: scale(1.05); 
 }
 .card-container{
     display: grid;
@@ -121,12 +121,56 @@ nav .navbar-brand{
 .prefer_button:hover{
     transform: scale(1.20);
 }
+.delete_button{
+    margin-left: 14rem;
+    border: none;
+    border-radius: 0px 0px 15px 15px;
+    background-color:#ff0000e0;
+    width: 40px;
+    height: 50px;
+    margin-top: 0.8rem;
+    color: white;
+}
+.delete_button:hover{
+    transform: scale(1.20);
+}
 #prefer{
     margin-right: -13rem;
     width: 60px;
     height: 60px;
+    border: 1px solid rgb(210, 210, 210);
+    border-radius: 5px;
+    text-decoration: none;
 }
 #prefer p{
+    margin-left: 1rem;
+    margin-top: -0.4rem;
     font-size: 40px;
     color: #3457D5;
+}
+#prefer:focus{
+    border-width: 3.5px;
+    border-color: grey;
+}
+
+#favorite{
+    margin-top: 1rem;
+    margin-right: 9rem;
+    margin-left: -1rem;
+}
+
+#home{
+    border: 1px solid rgb(210, 210, 210);
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+}
+#home img{
+    margin-left: 0.6rem;
+    margin-top: 0.1rem;
+}
+
+#home:focus{
+    border-width: 3.5px;
+    border-color: grey
 }

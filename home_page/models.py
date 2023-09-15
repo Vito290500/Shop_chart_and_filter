@@ -23,6 +23,7 @@ class ShopItem(models.Model):
     category = models.ManyToManyField(Category)
     brand = models.ManyToManyField(Brand)
     available = models.IntegerField(null=True)
+    prefer = models.CharField(max_length=150, null=True)
     
     def __str__(self):
         return self.NameItem

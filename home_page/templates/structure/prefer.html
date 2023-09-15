@@ -1,0 +1,122 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+        <title>Shop Home Page</title>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="{% static 'style/style.css'%}">
+    </head>
+<body class="p-3 m-0 border-0 bd-example m-0 border-0">
+
+    <div class="background">
+        <img src="https://img.icons8.com/?size=512&id=13014&format=png" alt="" width="50px" height="50px">
+        <h1>MY PERSONAL SHOP</h1>
+    </div>
+    
+    <div class="nav">
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+    
+                <button id="menu" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+    
+                <a id="home" class="navbar-brand" href="{% url 'home-page' %}"><img src="https://static-00.iconduck.com/assets.00/home-button-emoji-512x485-pd5ksjgg.png" alt="" width="40px" height="40px"></a>
+    
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Welcome to Shop</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+    
+                    <div class="offcanvas-body">
+
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <a class="navbar-brand" href="#">SHOP</a>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Special Offert</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Tendency</a>
+                            </li>
+
+                            <a class="navbar-brand" href="#">CHART</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">My Chart</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">My order</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Refunds</a>
+                            </li>
+
+                            <a class="navbar-brand" href="#">SUPPORT</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Options</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Support
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Contact</a></li>
+                                    <li><a class="dropdown-item" href="#">Question</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Submit a request</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+    
+                <p class="navbar-brand" id="favorite">FAVORITE LIST</p>
+
+                <button id="chart" class="navbar-toggler" type="button">
+                    <img src="https://img.icons8.com/?size=512&id=13014&format=png" alt="" width="35px" height="40px">
+                </button>
+
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="card-container">
+            {% if message %}
+                <p class="no-result">{{message}}</p>
+            {% else %}
+                {% for item in items %}
+                    <div class="card" style="width: 18rem;">
+                        <form action="{% url 'list-prefer' %}" method="post">
+                            {% csrf_token %}
+                            <div class="add_to_prefer">
+                                <input type="hidden" name="Add" value="{{ item.prefer }}">
+                                <button class="delete_button" type="submit">X</button>
+                            </div>
+                        </form>
+                        <img src="{{ item.ImageItem.url }}" height="300px" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.NameItem }}</h5>
+                            <p id="price" class="card-text" style="display: inline;">Price: {{ item.PriceItem }}</p>
+                            <p id="available" class="card-text" style="display: inline;">Available: {{ item.available }}</p>
+                            <a href="#" id="price" class="btn btn-primary">Add to Chart</a>
+                            <a href="#" id="show" class="btn btn-outline-primary">Show Details</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
