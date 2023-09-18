@@ -98,9 +98,9 @@
                 </a>
                 
 
-                <button id="chart" class="navbar-toggler" type="button">
+                <a href="{% url 'chart' %}" id="chart" class="navbar-toggler" type="button">
                     <img src="https://img.icons8.com/?size=512&id=13014&format=png" alt="" width="35px" height="40px">
-                </button>
+                </a>
 
             </div>
         </nav>
@@ -197,7 +197,7 @@
             {% else %}
                 {% for item in items %}
                     <div class="card" style="width: 18rem;">
-                        {% if item.prefer %}
+                        {% if item.prefer == 'yes' %}
                             <form action="{% url 'list-prefer' %}" method="post">
                                 {% csrf_token %}
                                 <div class="add_to_prefer">
@@ -221,7 +221,13 @@
                             <h5 class="card-title">{{ item.NameItem }}</h5>
                             <p id="price" class="card-text" style="display: inline;">Price: {{ item.PriceItem }}</p>
                             <p id="available" class="card-text" style="display: inline;">Available: {{ item.available }}</p>
-                            <a href="#" id="price" class="btn btn-primary">Add to Chart</a>
+                            
+                            <form action="{% url 'chart' %}" method="post" class="form_chart">
+                                {% csrf_token %}
+                                <input type="hidden" name="NameItem" value="{{ item.NameItem }}">
+                                <button type="submit" id="price" class="btn btn-primary">Add to Chart</button>
+                            </form>
+                            
                             <a href="#" id="show" class="btn btn-outline-primary">Show Details</a>
                         </div>
                     </div>

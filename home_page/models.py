@@ -24,6 +24,7 @@ class ShopItem(models.Model):
     brand = models.ManyToManyField(Brand)
     available = models.IntegerField(null=True)
     prefer = models.CharField(max_length=150, null=True)
+    on_chart = models.CharField(max_length=5, null=True)
     
     def __str__(self):
         return self.NameItem

@@ -76,11 +76,12 @@ class HomePage(View):
             final_filter_applied_items = self.check_latest(request, additional_filtered_items, last_updated_filter)
 
             return render(request, "structure/homepage.html",{
-                      'items': final_filter_applied_items,
-                      "category" : category,
-                      "brand": brand,
-                      "tag": tag
-                      }) 
+                'items': final_filter_applied_items,
+                "category": brand,
+                "tag": tag 
+            })
+
+
         else:
             filter = self.check_filter(request, category_choice, brand_filter, specific_category_filter, price_filter, last_updated_filter)
             #Check with 3 category filter
@@ -176,7 +177,6 @@ class HomePage(View):
                             "message": "There is no result."
                             })
             
-
 class HomePageSearch(View):
     
     def post(self, request):
@@ -235,7 +235,7 @@ class HomePageSearch(View):
                                 "tag": tag,
                                 "message": "There is no result."
                                 })
-            
+
 class Prefer(View):
     def get(self, request):
         prefer_item = ShopItem.objects.filter(prefer = "yes")
@@ -245,17 +245,53 @@ class Prefer(View):
 
     def post(self, request):
         add_to_prefer = request.POST['Add']
-        nameitem = request.POST['NameItem']
+        nameitem = request.POST.get('NameItem')
+        change_prefer = ShopItem.objects.get(NameItem=nameitem)
 
         if add_to_prefer == ' ' or add_to_prefer == 'yes':
-            change_prefer = ShopItem.objects.get(NameItem=nameitem)
+            print("sono nell'if")
             change_prefer.prefer = "no"
             change_prefer.save()
 
-        else: 
-            change_prefer = ShopItem.objects.get(NameItem=nameitem)
+        else:
+            print("sono nell'else")
             change_prefer.prefer = "yes"
             change_prefer.save()
+
+
+        brand = Brand.objects.all()
+        category = Category.objects.all()
+        all_item = ShopItem.objects.all()
+        tag = ShopItem.objects.values_list('TagItem', flat=True).distinct()
+
+       
+        return render(request, "structure/homepage.html",{
+                      'items': all_item,
+                      "category" : category,
+                      "brand": brand,
+                      "tag": tag,
+                      })
+
+
+
+
+
+ 
+
+
+class Chart(View):
+    def get(self, request):
+        added_to_chart = ShopItem.objects.filter(on_chart = "yes")
+        return render(request, "structure/chart.html",{
+            "items" : added_to_chart
+        })
+    
+    def post(self, request):
+        
+        name_item_to_add = request.POST.get('NameItem')
+        item = ShopItem.objects.get(NameItem = name_item_to_add)
+        item.on_chart = "yes"
+        item.save()
 
         brand = Brand.objects.all()
         category = Category.objects.all()
@@ -266,13 +302,5 @@ class Prefer(View):
                       'items': all_item,
                       "category" : category,
                       "brand": brand,
-                      "tag": tag
+                      "tag": tag,
                       })
-
-
-
-
-class Chart(View):
-    pass
-
-

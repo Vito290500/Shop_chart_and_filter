@@ -81,7 +81,7 @@
                     </div>
                 </div>
     
-                <p class="navbar-brand" id="favorite">FAVORITE LIST</p>
+                <p class="navbar-brand" id="favorite">CHART</p>
 
                 <button id="chart" class="navbar-toggler" type="button">
                     <img src="https://img.icons8.com/?size=512&id=13014&format=png" alt="" width="35px" height="40px">
@@ -91,28 +91,28 @@
         </nav>
     </div>
 
-    <div class="container">
-        <div class="card-container">
-            {% if message %}
-                <p class="no-result">{{message}}</p>
+    <div class="container-chart">
+
+        <h3>Your Chart Item</h3>
+
+        <div class="card-container-chart">
+            {% if noitem %}
+                <h1>There is no item on the chart</h1>
+                <button>Continue Shop</button>
+            
             {% else %}
                 {% for item in items %}
-                    <div class="card" style="width: 18rem;">
-                        <form action="{% url 'list-prefer' %}" method="post">
-                            {% csrf_token %}
-                            <div class="add_to_prefer">
-                                <input type="hidden" name="NameItem" value="{{ item.NameItem }}">
-                                <input type="hidden" name="Add" value="{{ item.prefer }}">
-                                <button class="delete_button" type="submit">X</button>
-                            </div>
-                        </form>
+
+                    <div class="card-chart">
                         <img src="{{ item.ImageItem.url }}" height="300px" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ item.NameItem }}</h5>
-                            <p id="price" class="card-text" style="display: inline;">Price: {{ item.PriceItem }}</p>
-                            <p id="available" class="card-text" style="display: inline;">Available: {{ item.available }}</p>
-                            <a href="#" id="price" class="btn btn-primary">Add to Chart</a>
-                            <a href="#" id="show" class="btn btn-outline-primary">Show Details</a>
+                        <div class="item-description">
+                            <div class="title-item">
+                                <h5 class="card-title">{{ item.NameItem }}</h5>
+                            </div>
+                            <div class="card-body-chart">
+                                <p id="price-chart" class="card-text" style="display: inline;">Price: {{ item.PriceItem }}</p>
+                                <p id="available-chart" class="card-text" style="display: inline;">Quantity:</p>
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
