@@ -273,12 +273,6 @@ class Prefer(View):
                       })
 
 
-
-
-
- 
-
-
 class Chart(View):
     def get(self, request):
         added_to_chart = ShopItem.objects.filter(on_chart = "yes")
@@ -304,3 +298,11 @@ class Chart(View):
                       "brand": brand,
                       "tag": tag,
                       })
+
+
+
+
+
+
+
+
