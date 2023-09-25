@@ -195,6 +195,11 @@
         {% if message_add %}
             <p class="added-tochart" id="message"> {{ message_add }}</p>
         {% endif %}
+
+        {% if message_error %}
+            <p class="not-added" id="message"> {{ message_error }}</p>
+        {% endif %}
+        
         <div class="card-container">
             {% if message %}
                 <p class="no-result" >{{message}}</p>

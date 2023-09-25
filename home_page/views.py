@@ -272,7 +272,6 @@ class Prefer(View):
                       "tag": tag,
                       })
 
-
 class Chart(View):
 
     def get(self, request):
@@ -280,8 +279,6 @@ class Chart(View):
         price_session = 0
         for item in added_to_chart:
             price_session += item.PriceItem * item.quantity
-
-
 
         return render(request, "structure/chart.html",{
             "items" : added_to_chart,
@@ -294,7 +291,6 @@ class Chart(View):
         remove = request.POST.get('remove')
 
         if remove == 'yes':
-            
             item = ShopItem.objects.get(NameItem = name_item_to_add)
             var = item.quantity
             item.on_chart = "no"
@@ -310,23 +306,39 @@ class Chart(View):
 
         else:
             item = ShopItem.objects.get(NameItem = name_item_to_add)
-            item.on_chart = "yes"
-            item.available -= 1
-            item.quantity += 1
-            item.save()
 
             brand = Brand.objects.all()
             category = Category.objects.all()
             all_item = ShopItem.objects.all()
             tag = ShopItem.objects.values_list('TagItem', flat=True).distinct()
+            
+            if item.available == 0:
+                return render(request, "structure/homepage.html",{
+                            'items': all_item,
+                            "category" : category,
+                            "brand": brand,
+                            "tag": tag,
+                            "message_error": "Ops! This item are not available!"
+                            })
+        
+            else:
+                item.on_chart = "yes"
+                item.available -= 1
+                item.quantity += 1
+                item.save()
 
-            return render(request, "structure/homepage.html",{
-                        'items': all_item,
-                        "category" : category,
-                        "brand": brand,
-                        "tag": tag,
-                        "message_add": "Added to Chart!"
-                        })
+                brand = Brand.objects.all()
+                category = Category.objects.all()
+                all_item = ShopItem.objects.all()
+                tag = ShopItem.objects.values_list('TagItem', flat=True).distinct()
+
+                return render(request, "structure/homepage.html",{
+                            'items': all_item,
+                            "category" : category,
+                            "brand": brand,
+                            "tag": tag,
+                            "message_add": "Added to Chart!"
+                            })
 
 
 

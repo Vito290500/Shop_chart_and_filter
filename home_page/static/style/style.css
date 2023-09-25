@@ -266,3 +266,15 @@ nav .navbar-brand{
     color: green;
 }
 
+.not-added{
+    margin-left: -6.5rem;
+    height: 40px;
+    font-size: 22px;
+    width: 900px;
+    border: 1px solid red;
+    background-color: rgb(255, 205, 205);
+    border-radius: 5px;
+    text-align: center;
+    color: red;
+}
+
