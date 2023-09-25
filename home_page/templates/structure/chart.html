@@ -93,7 +93,7 @@
 
     <div class="container-chart">
 
-        <h3>Your Chart Item</h3>
+        <h3>YOUR CHART ITEM</h3>
 
         <div class="card-container-chart">
             {% if noitem %}
@@ -102,22 +102,45 @@
             
             {% else %}
                 {% for item in items %}
-
                     <div class="card-chart">
                         <img src="{{ item.ImageItem.url }}" height="300px" class="card-img-top" alt="...">
                         <div class="item-description">
                             <div class="title-item">
                                 <h5 class="card-title">{{ item.NameItem }}</h5>
+                                <form action="{% url 'chart' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="delete_from_chart">
+                                        <input type="hidden" name="remove" value="{{ item.on_chart }}">
+                                        <input type="hidden" name="NameItem" value="{{ item.NameItem }}">
+                                        <button class="delete_button" type="submit">X</button>
+                                    </div>
+                                </form>
                             </div>
                             <div class="card-body-chart">
                                 <p id="price-chart" class="card-text" style="display: inline;">Price: {{ item.PriceItem }}</p>
-                                <p id="available-chart" class="card-text" style="display: inline;">Quantity:</p>
+                                <p id="available-chart" class="card-text" style="display: inline;">Quantity: {{ item.quantity }}</p>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
             {% endif %}
         </div>
+
+        <div class="price-total">
+            <div class="price">
+                <p>Price:</p>
+                <p class="value">{{ price }}</p>
+            </div>
+            <div class="ship">
+                <p>Spedizione:</p>
+                <p class="value2">xxxxx</p>
+            </div>
+            <div class="total">
+                <p>Total:</p>
+                <p class="value">10000</p>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>

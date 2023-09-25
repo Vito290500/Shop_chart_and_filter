@@ -185,7 +185,7 @@ nav .navbar-brand{
     position: absolute;
     top: 16rem;
     width: 600px;
-    height: 500px;
+    height: 500;
     border: 1px solid lightgray;
     border-radius: 5px;
     margin-left: 10rem;
@@ -196,8 +196,11 @@ nav .navbar-brand{
     border: 1px solid lightgray;
     border-radius: 5px;
     width: 530px;
+    height: 100px;
 }
 .card-chart img{
+    margin-left: 2rem;
+    margin-top: 1rem;
     width: 100px;
     height: 60px;
 }
@@ -220,3 +223,46 @@ nav .navbar-brand{
 .card-container-chart{
     width: 100%;
 }
+.delete_from_chart{
+    margin-top: -3rem;
+    margin-left: 4rem;
+    width: 100px;
+}
+.container-chart h3{
+    text-align: center;
+    margin-top: 1rem;
+    color: #3457D5;
+    margin-bottom: 2rem;
+}
+.price-total{
+    margin-left: 60%;
+    margin-top: 5rem;
+    margin-bottom: 1rem;
+}
+.price{
+    display: flex;
+}
+.ship{
+    display: flex;
+}
+.total{
+    display: flex;
+}
+.value{
+    margin-left: 4rem;
+}
+.value2{
+    margin-left: 1.5rem;
+}
+.added-tochart{
+    margin-left: -6.5rem;
+    height: 40px;
+    font-size: 22px;
+    width: 900px;
+    border: 1px solid green;
+    background-color: rgb(184, 255, 184);
+    border-radius: 5px;
+    text-align: center;
+    color: green;
+}
+

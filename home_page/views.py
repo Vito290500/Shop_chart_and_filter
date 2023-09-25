@@ -274,30 +274,59 @@ class Prefer(View):
 
 
 class Chart(View):
+
     def get(self, request):
         added_to_chart = ShopItem.objects.filter(on_chart = "yes")
+        price_session = 0
+        for item in added_to_chart:
+            price_session += item.PriceItem * item.quantity
+
+
+
         return render(request, "structure/chart.html",{
-            "items" : added_to_chart
-        })
+            "items" : added_to_chart,
+            "price" : price_session
+            })
     
     def post(self, request):
         
         name_item_to_add = request.POST.get('NameItem')
-        item = ShopItem.objects.get(NameItem = name_item_to_add)
-        item.on_chart = "yes"
-        item.save()
+        remove = request.POST.get('remove')
 
-        brand = Brand.objects.all()
-        category = Category.objects.all()
-        all_item = ShopItem.objects.all()
-        tag = ShopItem.objects.values_list('TagItem', flat=True).distinct()
+        if remove == 'yes':
+            
+            item = ShopItem.objects.get(NameItem = name_item_to_add)
+            var = item.quantity
+            item.on_chart = "no"
+            item.available += item.quantity
+            item.quantity -= var
+            item.save()
 
-        return render(request, "structure/homepage.html",{
-                      'items': all_item,
-                      "category" : category,
-                      "brand": brand,
-                      "tag": tag,
-                      })
+            added_to_chart = ShopItem.objects.filter(on_chart = "yes")
+
+            return render(request, "structure/chart.html",{
+                        "items" : added_to_chart,
+                        })
+
+        else:
+            item = ShopItem.objects.get(NameItem = name_item_to_add)
+            item.on_chart = "yes"
+            item.available -= 1
+            item.quantity += 1
+            item.save()
+
+            brand = Brand.objects.all()
+            category = Category.objects.all()
+            all_item = ShopItem.objects.all()
+            tag = ShopItem.objects.values_list('TagItem', flat=True).distinct()
+
+            return render(request, "structure/homepage.html",{
+                        'items': all_item,
+                        "category" : category,
+                        "brand": brand,
+                        "tag": tag,
+                        "message_add": "Added to Chart!"
+                        })
 
 
 
