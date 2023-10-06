@@ -35,8 +35,39 @@
     height: 100px;
     display: flex;
 }
-nav .navbar-brand{
-    margin-left: -14rem;
+.home{
+    margin-left: 0rem;
+    margin-top: -1rem;
+}
+.home a{
+    margin-right: 5rem;
+}
+.search{
+    display: flex;
+    margin-top: -1rem;
+}
+#filter{
+    margin-left: 0.5rem;
+    width: 100px;
+}
+.chart-prefer{
+    height: 5 0px;
+    display: flex;
+}
+#chart{
+    margin-top: -1rem;
+    margin-right: 1rem;
+    width: 60px;
+    height: 60px;
+}
+#prefer{
+    margin-right: 1rem;
+    width: 60px;
+    height: 60px;
+    border: 1px solid rgb(210, 210, 210);
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: -1rem;
 }
 .d-flex{
     margin-left: -8rem;
@@ -46,16 +77,6 @@ nav .navbar-brand{
 }
 .d-flex button{
     width: 80px;
-}
-#filter{
-    margin-left: -13rem;
-    width: 100px;
-    margin-right: -12.5rem;
-}
-#chart{
-    margin-right: 1rem;
-    width: 60px;
-    height: 60px;
 }
 #menu{
     margin-left: 1rem;
@@ -98,12 +119,14 @@ nav .navbar-brand{
 .card:hover {
     transform: scale(1.05); 
 }
-.card-container{
+.card-container {
     display: grid;
     grid-template-columns: auto auto auto;
-    padding: 10px;
-    position: absolute;
-    left: 1.5rem;
+    justify-content: center; 
+    align-items: center; 
+    height: 100%;
+    margin: -11rem auto 0 auto;
+    padding: 200px; 
 }
 .add_to_prefer{
     height: 70px;
@@ -135,14 +158,6 @@ nav .navbar-brand{
 .delete_button:hover{
     transform: scale(1.20);
 }
-#prefer{
-    margin-right: -13rem;
-    width: 60px;
-    height: 60px;
-    border: 1px solid rgb(210, 210, 210);
-    border-radius: 5px;
-    text-decoration: none;
-}
 #prefer p{
     margin-left: 1rem;
     margin-top: -0.4rem;
@@ -158,37 +173,21 @@ nav .navbar-brand{
     margin-right: 9rem;
     margin-left: -1rem;
 }
-#home{
-    border: 1px solid rgb(210, 210, 210);
-    width: 60px;
-    height: 60px;
-    border-radius: 5px;
-}
-#home img{
-    margin-left: 0.6rem;
-    margin-top: 0.1rem;
-}
-#home:focus{
-    border-width: 3.5px;
-    border-color: grey
+#favorite{
+    margin-top: 0rem;
 }
 .form_chart{
     display: inline-flex;
 }
-
-
-
-
-
-
-.container-chart{
+.container-chart {
     position: absolute;
-    top: 16rem;
+    top: 35rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 600px;
-    height: 500;
+    height: 500px; 
     border: 1px solid lightgray;
     border-radius: 5px;
-    margin-left: 10rem;
 }
 .card-chart{
     margin-left: 2rem;
@@ -255,7 +254,10 @@ nav .navbar-brand{
     margin-left: 1.5rem;
 }
 .added-tochart{
-    margin-left: -6.5rem;
+    position: absolute;
+    top: 17rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
     height: 40px;
     font-size: 22px;
     width: 900px;
@@ -265,9 +267,11 @@ nav .navbar-brand{
     text-align: center;
     color: green;
 }
-
 .not-added{
-    margin-left: -6.5rem;
+    position: absolute;
+    top: 17rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
     height: 40px;
     font-size: 22px;
     width: 900px;

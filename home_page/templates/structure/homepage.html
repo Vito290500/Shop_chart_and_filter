@@ -21,13 +21,14 @@
     <div class="nav">
         <nav class="navbar bg-body-tertiary">
             <div class="container-fluid">
-    
-                <button id="menu" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-    
-                <a class="navbar-brand" href="{% url 'home-page' %}">HOME PAGE</a>
-    
+                <div class="home">
+                    <button id="menu" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+        
+                    <a class="navbar-brand" href="{% url 'home-page' %}">HOME PAGE</a>
+                </div>
+
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Welcome to Shop</h5>
@@ -80,28 +81,29 @@
                         </ul>
                     </div>
                 </div>
-    
-                <form class="d-flex" role="search" action="{% url 'search-homepage' %}" method="post">
-                    {% csrf_token %}
-                    <input class="form-control me-2" type="search" name="textfield" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-primary" type="submit">Search</button>
-                </form>
 
-                <!-- Button trigger modal -->
-                <button type="button" id="filter" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Filter
-                </button>
+                <div class="search">
+                    <form class="d-flex" role="search" action="{% url 'search-homepage' %}" method="post">
+                        {% csrf_token %}
+                        <input class="form-control me-2" type="search" name="textfield" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-primary" type="submit">Search</button>
+                    </form>
 
-                
-                <a id="prefer" href="{% url 'list-prefer' %}">
-                    <p>♥️</p>
-                </a>
-                
+                    <!-- Button trigger modal -->
+                    <button type="button" id="filter" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Filter
+                    </button>
+                </div>
+                <div class="chart-prefer">
+                    <a id="prefer" href="{% url 'list-prefer' %}">
+                        <p>♥️</p>
+                    </a>
+                    
 
-                <a href="{% url 'chart' %}" id="chart" class="navbar-toggler" type="button">
-                    <img src="https://img.icons8.com/?size=512&id=13014&format=png" alt="" width="35px" height="40px">
-                </a>
-
+                    <a href="{% url 'chart' %}" id="chart" class="navbar-toggler" type="button">
+                        <img src="https://img.icons8.com/?size=512&id=13014&format=png" alt="" width="35px" height="40px">
+                    </a>
+                </div>
             </div>
         </nav>
     </div>

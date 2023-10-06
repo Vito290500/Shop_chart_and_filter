@@ -21,13 +21,15 @@
     <div class="nav">
         <nav class="navbar bg-body-tertiary">
             <div class="container-fluid">
-    
-                <button id="menu" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-    
-                <a id="home" class="navbar-brand" href="{% url 'home-page' %}"><img src="https://static-00.iconduck.com/assets.00/home-button-emoji-512x485-pd5ksjgg.png" alt="" width="40px" height="40px"></a>
-    
+                
+                <div class="home">
+                    <button id="menu" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+        
+                    <a class="navbar-brand" href="{% url 'home-page' %}">HOME PAGE</a>
+                </div>
+                
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Welcome to Shop</h5>
@@ -83,9 +85,9 @@
     
                 <p class="navbar-brand" id="favorite">CHART</p>
 
-                <button id="chart" class="navbar-toggler" type="button">
-                    <img src="https://img.icons8.com/?size=512&id=13014&format=png" alt="" width="35px" height="40px">
-                </button>
+                <a id="prefer" href="{% url 'list-prefer' %}">
+                    <p>♥️</p>
+                </a>
 
             </div>
         </nav>
@@ -137,7 +139,7 @@
             </div>
             <div class="total">
                 <p>Total:</p>
-                <p class="value">10000</p>
+                <p class="value">{{ price }}</p>
             </div>
         </div>
 
