@@ -1,0 +1,12 @@
+{
+    "name": "Django Codespace",
+    "dockerFile": "Dockerfile",
+    "settings": {
+      "python.pythonPath": "/usr/local/bin/python",
+      "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    "extensions": [
+      // List of VS Code extensions you want to install
+    ],
+    "forwardPorts": [8000]
+}
